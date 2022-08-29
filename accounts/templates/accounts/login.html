@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<main class="h-100 w-100 d-flex flex-column justify-content-center align-items-center" style="background-color: #f7f7f7">
+  <img src="{% static 'accounts/img/logo-gobierno.jpeg' %}" alt="Escudo de El Salvador" style="width: 200px;" class="mb-3">
+
+  {% if form.errors %}
+    <div class="alert alert-warning">
+      Su usuario y contraseña son incorrectos, por favor intente de nuevo.
+    </div>
+  {% endif %}
+  
+  {% if next %}
+    {% if user.is_authenticated %}
+      <div class="alert alert warning">
+        Su cuenta no tiene acceso a esta pagina. Puede iniciar sesión con otra cuenta si la tiene.
+      </div>
+    {% else %}
+      <div class="alert alert-info">
+        Por favor, inicie sesión para ver la página.
+      </div>
+    {% endif %}
+  {% endif %}
+
+  <form method="post" action="{% url 'accounts:login' %}">
+    {% csrf_token %}
+    <div class="mb-3">
+      {{ form.username.label_tag }}
+      {{ form.username }}
+    </div>
+    <div class="mb-3">
+      {{ form.password.label_tag }}
+      {{ form.password }}
+    </div>
+    <input type="submit" value="Login" class="btn btn-primary w-100 mb-3">
+    <input type="hidden" name="next" value="{{ next }}">
+  </form>
+  
+  {# Assumes you set up the password_reset view in your URLconf #}
+  <p><a href="#">Lost password?</a></p>
+</main>
+{% endblock content %}
