@@ -1,6 +1,6 @@
 # Content Manager
 
-A small content manager for all the static docs and templates that your organisation requires.
+A small content manager for all the static docs and templates that your organization requires.
 
 Host different files for any number of systems, each system can have its own api key to ensure authorize access to the file.
 
